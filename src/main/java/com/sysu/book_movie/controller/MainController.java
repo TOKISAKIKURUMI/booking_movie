@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sysu.book_movie.bussiness.entity.User;
+import com.sysu.book_movie.bussiness.entity.Movie;
+import com.sysu.book_movie.bussiness.entity.Cinema;
+import com.sysu.book_movie.bussiness.service.MovieService;
+import com.sysu.book_movie.bussiness.service.CinemaService;
 import com.sysu.book_movie.util.MyPersistentTokenBasedRememberMeService;
 
 @Controller
@@ -22,6 +26,28 @@ public class MainController {
 	
 	@Autowired
 	MyPersistentTokenBasedRememberMeService persistentTokenBasedRememberMeServices;
+
+	@Autowired
+	private MovieService movieService;
+
+	@ModelAttribute("allMovies")
+	public List<Movie> allMovies() {
+		return this.movieService.getAllMovies();
+	}
+
+	// if movie is in movieList, then invoke this function
+	// else, skip
+	@RequestMapping(value = "/FindByFile", method = RequestMethod.GET)
+	public String findByFile(Movie movie) {
+		return "FindByFile"
+	}
+
+	// if cinema is in cinemaList, then invoke this function
+	// else, skip
+	@RequestMapping(value = "/FindByCinema", method = RequestMethod.GET)
+	public String findByCinema(Cinema cinema) {
+		return "FindByCinema"
+	}
 	
 	@RequestMapping(value="/index", method = RequestMethod.GET)
 	public String IndexPage(User user, HttpServletRequest req) {
@@ -41,4 +67,5 @@ public class MainController {
 		}
 		return false;
 	}
+
 }
