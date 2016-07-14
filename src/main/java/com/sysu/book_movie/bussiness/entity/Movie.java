@@ -44,33 +44,19 @@ public class Movie implements Serializable {
 	private MovieType type;
 	@OneToMany(mappedBy="movie" ,fetch=FetchType.EAGER)
 	@Cascade({CascadeType.SAVE_UPDATE})
-	private List<Reservation> reservations = new ArrayList<Reservation>();
+	private List<Screening> Screening = new ArrayList<Screening>();
 	@SuppressWarnings("deprecation")
 	@OneToMany(mappedBy="movie" ,fetch=FetchType.EAGER)
-	@Cascade({CascadeType.ALL, CascadeType.DELETE_ORPHAN})
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE, CascadeType.DELETE_ORPHAN})
 	private List<Comment> comments = new ArrayList<Comment>();
-	@ManyToOne(fetch=FetchType.EAGER)//解决1+N,级联用ALL
-	@JoinColumn(name="cimema_Id")
-	private Cimema cimema;
-	
+
 	public Movie() {}
-	public List<Reservation> getReservations() {
-		return reservations;
-	}
-	public void setReservations(List<Reservation> reservations) {
-		this.reservations = reservations;
-	}
+
 	public List<Comment> getComments() {
 		return comments;
 	}
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
-	}
-	public Cimema getCimema() {
-		return cimema;
-	}
-	public void setCimema(Cimema cimema) {
-		this.cimema = cimema;
 	}
 	public Integer getMovieId() {
 		return movieId;
@@ -107,5 +93,12 @@ public class Movie implements Serializable {
 	}
 	public void setType(MovieType type) {
 		this.type = type;
+	}
+	public List<Screening> getScreening() {
+		return Screening;
+	}
+
+	public void setScreening(List<Screening> screening) {
+		Screening = screening;
 	}
 }

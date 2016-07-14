@@ -34,17 +34,13 @@ public class Hall implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer HallId;
-	private Integer max_size;
 	@SuppressWarnings("deprecation")
 	@OneToMany(mappedBy="hall" ,fetch=FetchType.EAGER)
-	@Cascade({CascadeType.ALL, CascadeType.DELETE_ORPHAN})
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE, CascadeType.DELETE_ORPHAN})
 	private List<Seat> seats = new ArrayList<Seat>();
 	@ManyToOne(fetch=FetchType.EAGER)//解决1+N,级联用ALL
 	@JoinColumn(name="cimema_Id")
 	private Cimema cimema;
-	@Enumerated(EnumType.ORDINAL)
-	@Column(name = "status")
-	private HallStatus status;
 	
 	public Hall() {}
 	public Integer getHallId() {
@@ -52,12 +48,6 @@ public class Hall implements Serializable{
 	}
 	public void setHallId(Integer hallId) {
 		HallId = hallId;
-	}
-	public Integer getMax_size() {
-		return max_size;
-	}
-	public void setMax_size(Integer max_size) {
-		this.max_size = max_size;
 	}
 	
 	public List<Seat> getSeats() {
@@ -72,12 +62,5 @@ public class Hall implements Serializable{
 	}
 	public void setCimema(Cimema cimema) {
 		this.cimema = cimema;
-	}
-	
-	public HallStatus getStatus() {
-		return status;
-	}
-	public void setStatus(HallStatus status) {
-		this.status = status;
 	}
 }

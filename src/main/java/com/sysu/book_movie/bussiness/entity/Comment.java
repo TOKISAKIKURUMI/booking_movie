@@ -27,7 +27,6 @@ public class Comment implements Serializable{
 	private float score;
 	private String content;
 	@ManyToOne(fetch=FetchType.EAGER)//解决1+N,级联用ALL
-	@Cascade({CascadeType.SAVE_UPDATE})
 	@JoinColumn(name="movie_Id")
 	private Movie movie;
 	

@@ -35,7 +35,7 @@ public class User implements Serializable {
 	private String email;
 	@SuppressWarnings("deprecation")
 	@OneToMany(mappedBy="user" ,fetch=FetchType.EAGER)
-	@Cascade({CascadeType.ALL, CascadeType.DELETE_ORPHAN})
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE, CascadeType.DELETE_ORPHAN})
 	private List<Reservation> reservations = new ArrayList<Reservation>();
 	
 	public User() {}

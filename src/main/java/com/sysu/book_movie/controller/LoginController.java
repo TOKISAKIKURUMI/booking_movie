@@ -3,6 +3,7 @@ package com.sysu.book_movie.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.authentication.RememberMeAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +17,7 @@ import com.sysu.book_movie.bussiness.entity.User;
 import com.sysu.book_movie.bussiness.service.UserService;
 
 @Controller
+@Scope("prototype")
 public class LoginController {
 
 	@Autowired

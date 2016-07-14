@@ -37,9 +37,10 @@ public class Cimema implements Serializable{
 	@OneToMany(mappedBy="cimema" ,fetch=FetchType.EAGER)
 	@Cascade({CascadeType.ALL, CascadeType.DELETE_ORPHAN})
 	private List<Hall> halls = new ArrayList<Hall>();
-	@OneToMany(mappedBy="cimema",fetch=FetchType.EAGER)
-	@Cascade({CascadeType.SAVE_UPDATE})
-	private List<Movie> movies = new ArrayList<Movie>();
+	@OneToMany(mappedBy="cimema", fetch=FetchType.EAGER)
+	@Cascade({CascadeType.ALL})
+	private List<Screening> screenings = new ArrayList<Screening>();
+
 
 	public Cimema() {};
 
@@ -98,12 +99,12 @@ public class Cimema implements Serializable{
 	public void setHalls(List<Hall> halls) {
 		this.halls = halls;
 	}
-
-	public List<Movie> getMovies() {
-		return movies;
+	
+	public List<Screening> getScreenings() {
+		return screenings;
 	}
 
-	public void setMovies(List<Movie> movies) {
-		this.movies = movies;
+	public void setScreenings(List<Screening> screenings) {
+		this.screenings = screenings;
 	}
 }

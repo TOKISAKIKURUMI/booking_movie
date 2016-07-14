@@ -17,28 +17,24 @@ import com.sysu.book_movie.bussiness.entity.User;
 public class UserDAOImpl implements UserDAO {
 
 	@Autowired
-    private SessionFactory sessionFactory;
-	
-	private Session getCurrentSession() {
-		return sessionFactory.getCurrentSession();
-    }
+    private CurrentSession currentSession;
 	
 	public void addUser(User user) {
 		// TODO Auto-generated method stub
-        getCurrentSession().save(user);
+        currentSession.getCurrentSession().save(user);
 	}
 
 	public void updateUser(User user) {
 		// TODO Auto-generated method stub
-        getCurrentSession().update(user);
+        currentSession.getCurrentSession().update(user);
 	}
 
 	public User getUserById(int id) {
 		// TODO Auto-generated method stub
 		User user = null;
-        getCurrentSession().setCacheMode(CacheMode.NORMAL);
+        currentSession.getCurrentSession().setCacheMode(CacheMode.NORMAL);
         //这里不需要使用lazyload,user的数据都比较重要，可以直接从数据库中得到实体
-        user = (User) getCurrentSession().get(User.class, id);
+        user = (User) currentSession.getCurrentSession().get(User.class, id);
 		return user;
 	}
 
@@ -46,8 +42,8 @@ public class UserDAOImpl implements UserDAO {
 	public List<User> getUserByName(String userName) {
 		// TODO Auto-generated method stub
 		List<User> user = new ArrayList<User>();
-	    getCurrentSession().setCacheMode(CacheMode.NORMAL);
-	    Query query = getCurrentSession().createQuery("from User as user where user.userName=:name");
+	    currentSession.getCurrentSession().setCacheMode(CacheMode.NORMAL);
+	    Query query = currentSession.getCurrentSession().createQuery("from User as user where user.userName=:name");
 		query.setString("name", userName);
 		query.setCacheable(true);
 		user = query.list();
@@ -56,10 +52,9 @@ public class UserDAOImpl implements UserDAO {
 
 	public void deleteUser(int id) {
 		// TODO Auto-generated method stub
-		getCurrentSession().setCacheMode(CacheMode.NORMAL);
 		User user = getUserById(id);
 		if (user != null) {
-			getCurrentSession().delete(user);
+			currentSession.getCurrentSession().delete(user);
 		}
 	}
 
@@ -67,8 +62,8 @@ public class UserDAOImpl implements UserDAO {
 	public List<User> getAllUsers() {
 		// TODO Auto-generated method stub
 		List<User> users = new ArrayList<User>();
-		getCurrentSession().setCacheMode(CacheMode.GET);
-		users = getCurrentSession().createQuery("from User").list();
+		currentSession.getCurrentSession().setCacheMode(CacheMode.GET);
+		users = currentSession.getCurrentSession().createQuery("from User").list();
 		return users;
 	}
 

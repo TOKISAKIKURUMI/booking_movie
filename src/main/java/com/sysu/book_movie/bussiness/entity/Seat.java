@@ -16,11 +16,14 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name="Seat")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Seat implements Serializable{
 	/**
 	 * 
@@ -40,14 +43,14 @@ public class Seat implements Serializable{
 	@JoinColumn(name="hall_Id")
 	private Hall hall;
 	@OneToOne(mappedBy="seat", optional=true)
-	@Cascade(CascadeType.ALL)
-	private Reservation reservation;
+	@Cascade({CascadeType.SAVE_UPDATE,CascadeType.DELETE, CascadeType.DELETE_ORPHAN})
+	private SeatState seatState;
 	
 	public Seat() {}
-	public SeatStatus getSstatus() {
-		return sstatus;
+	
+	public void setSeatState(SeatState seatState) {
+		this.seatState = seatState;
 	}
-
 	public void setSstatus(SeatStatus sstatus) {
 		this.sstatus = sstatus;
 	}
@@ -84,11 +87,12 @@ public class Seat implements Serializable{
 		this.hall = hall;
 	}
 	
-	public Reservation getReservation() {
-		return reservation;
+	public SeatStatus getSstatus() {
+		return sstatus;
+	}
+
+	public SeatState getSeatState() {
+		return seatState;
 	}
 	
-	public void setReservation(Reservation reservation) {
-		this.reservation = reservation;
-	}
 }

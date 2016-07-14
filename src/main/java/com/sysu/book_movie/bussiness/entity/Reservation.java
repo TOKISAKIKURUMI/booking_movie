@@ -29,14 +29,9 @@ public class Reservation implements Serializable{
 	@ManyToOne(fetch=FetchType.EAGER)//解决1+N,级联用ALL
 	@JoinColumn(name="user_Id")
 	private User user;
-	@ManyToOne(fetch=FetchType.EAGER)//解决1+N,级联用ALL
-	@JoinColumn(name="movie_Id")
-	private Movie movie;
-	@OneToOne(optional = false)
-	@JoinColumn(name="seat_id", referencedColumnName="seatId", unique=true)
-	private Seat seat;
-	private float price;
-	private String time;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="Screening_id")
+	private Screening screening;
 	
 	public Reservation() {}
 	public Integer getRId() {
@@ -51,28 +46,11 @@ public class Reservation implements Serializable{
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public float getPrice() {
-		return price;
+	public Screening getScreening() {
+		return screening;
 	}
-	public void setPrice(float price) {
-		this.price = price;
+	public void setScreening(Screening screening) {
+		this.screening = screening;
 	}
-	public String getTime() {
-		return time;
-	}
-	public void setTime(String time) {
-		this.time = time;
-	}
-	public Movie getMovie() {
-		return movie;
-	}
-	public void setMovie(Movie movie) {
-		this.movie = movie;
-	}
-	public Seat getSeat() {
-		return seat;
-	}
-	public void setSeat(Seat seat) {
-		this.seat = seat;
-	}
+
 }
